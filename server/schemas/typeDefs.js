@@ -1,7 +1,7 @@
 // import graphQL schema
 const { gql } = require("apollo-server-express");
 
-//define schemas
+// define schemas
 const typeDefs = gql`
     type User {}`;
 

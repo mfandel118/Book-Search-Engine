@@ -38,7 +38,7 @@ const resolvers = {
 		},
 		saveBook: async (
 			parent,
-			{ author, description, title, bookId, image, link },
+			{ authors, description, title, bookId, image, link },
 			context
 		) => {
 			if (context.user) {
@@ -47,10 +47,10 @@ const resolvers = {
 					{
 						$addToSet: {
 							savedBooks: {
-								author: author,
+								authors: authors,
 								description: description,
 								title: title,
-								_id: bookId,
+								bookId: bookId,
 								image: image,
 								link: link,
 							},
@@ -64,7 +64,7 @@ const resolvers = {
 			if (context.user) {
 				return User.findOneAndUpdate(
 					{ _id: context.user._id },
-					{ $pull: { savedBooks: { _id: bookId } } },
+					{ $pull: { savedBooks: { bookId: bookId } } },
 					{ new: true }
 				);
 			}

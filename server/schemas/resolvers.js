@@ -4,6 +4,7 @@ const { User } = require("../models");
 // queries & mutations
 const resolvers = {
 	Query: {},
+	Mutation: {},
 };
 
 // export resolvers

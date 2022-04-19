@@ -36,7 +36,30 @@ const resolvers = {
 			const token = signToken(user);
 			return { token, user };
 		},
-		// saveBook:
+		saveBook: async (
+			parent,
+			{ author, description, title, bookId, image, link },
+			context
+		) => {
+			if (context.user) {
+				return User.findOneAndUpdate(
+					{ _id: context.user._id },
+					{
+						$addToSet: {
+							savedBooks: {
+								author: author,
+								description: description,
+								title: title,
+								_id: bookId,
+								image: image,
+								link: link,
+							},
+						},
+					},
+					{ new: true }
+				);
+			}
+		},
 		removeBook: async (parent, { bookId }, context) => {
 			if (context.user) {
 				return User.findOneAndUpdate(
